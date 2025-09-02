@@ -1,0 +1,2 @@
+# xentrix-mockup
+Entidad certificadora
