@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Próximas Visitas - Xentrix</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      margin-top: 20px;
+    }
+
+    .calendar div {
+      padding: 10px;
+      text-align: center;
+      border-radius: 4px;
+      background: #ecf0f1;
+    }
+
+    .calendar .header {
+      font-weight: bold;
+      background: #2980b9;
+      color: white;
+    }
+
+    .calendar .visit {
+      background: #f1c40f;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body class="home-body">
+
+  <!-- Menú lateral -->
+  <div class="sidebar">
+    <h2>Menú</h2>
+    <ul>
+      <li><a href="home.html">🏠 Home</a></li>
+      <li><a href="add-documents.html">📂 Añadir documentos</a></li>
+      <li><a href="proximas-visitas.html">📅 Próximas visitas</a></li>
+      <li><a href="#">🔎 Buscar en documentos</a></li>
+      <li><a href="#">🔔 Notificaciones</a></li>
+      <li><a href="index.html">🚪 Salir</a></li>
+    </ul>
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="main">
+    <h1>Próximas Visitas</h1>
+    <p>Haz click en los días resaltados para más información.</p>
+
+    <div class="calendar" id="calendar"></div>
+  </div>
+
+  <script>
+    // Fechas con visitas desde localStorage
+    const visitas = JSON.parse(localStorage.getItem("visitas")) || [];
+    
+    function buildCalendar(year, month) {
+      const calendarDiv = document.getElementById("calendar");
+      calendarDiv.innerHTML = "";
+
+      const diasSemana = ["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"];
+      diasSemana.forEach(d => {
+        const header = document.createElement("div");
+        header.className = "header";
+        header.textContent = d;
+        calendarDiv.appendChild(header);
+      });
+
+      const firstDay = new Date(year, month, 1).getDay();
+      const totalDays = new Date(year, month+1, 0).getDate();
+
+      let emptyDays = firstDay === 0 ? 6 : firstDay - 1;
+      for(let i=0; i<emptyDays; i++){
+        const empty = document.createElement("div");
+        calendarDiv.appendChild(empty);
+      }
+
+      for(let day=1; day<=totalDays; day++){
+        const dateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+        const dayDiv = document.createElement("div");
+        dayDiv.textContent = day;
+
+        if(visitas.includes(dateStr)){
+          dayDiv.classList.add("visit");
+          dayDiv.addEventListener("click", () => {
+            alert(`Tienes una visita programada el ${dateStr}`);
+          });
+        }
+
+        calendarDiv.appendChild(dayDiv);
+      }
+    }
+
+    const today = new Date();
+    buildCalendar(today.getFullYear(), today.getMonth());
+  </script>
+
+</body>
+</html>
+

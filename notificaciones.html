@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Notificaciones - Xentrix</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .main .notificacion {
+      background: white;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .main .notificacion:hover {
+      background: #f1f1f1;
+    }
+
+    .main .notificacion.fecha-proxima {
+      border-left: 5px solid #f1c40f;
+    }
+
+    .main .notificacion.exito {
+      border-left: 5px solid #27ae60;
+    }
+  </style>
+</head>
+<body class="home-body">
+
+  <!-- Menú lateral -->
+  <div class="sidebar">
+    <h2>Menú</h2>
+    <ul>
+      <li><a href="home.html">🏠 Home</a></li>
+      <li><a href="add-documents.html">📂 Añadir documentos</a></li>
+      <li><a href="proximas-visitas.html">📅 Próximas visitas</a></li>
+      <li><a href="buscar-documentos.html">🔎 Buscar en documentos</a></li>
+      <li><a href="notificaciones.html">🔔 Notificaciones</a></li>
+      <li><a href="index.html">🚪 Salir</a></li>
+    </ul>
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="main">
+    <h1>Notificaciones</h1>
+    <div id="notificaciones">
+      <!-- Notificaciones dinámicas -->
+    </div>
+  </div>
+
+  <script>
+    // Fechas de ejemplo para notificaciones
+    const visitas = JSON.parse(localStorage.getItem("visitas")) || [];
+    const hoy = new Date().toISOString().split('T')[0];
+
+    const notificaciones = [];
+
+    // Notificación por visita mañana
+    visitas.forEach(fecha => {
+    const visitaDate = new Date(fecha + "T00:00:00"); // fuerza hora local 00:00
+    const hoyDate = new Date();
+    hoyDate.setHours(0,0,0,0); // limpiar horas de hoy
+
+    const diff = Math.round((visitaDate - hoyDate) / (1000*60*60*24));
+
+    if(diff === 1){
+        notificaciones.push({
+        tipo: "fecha-proxima",
+        mensaje: `¡Recuerda! Tienes una visita mañana (${fecha})`
+        });
+    } else if(diff === 0){
+        notificaciones.push({
+        tipo: "fecha-proxima",
+        mensaje: `¡Hoy es tu visita programada (${fecha})!`
+        });
+    }
+    });
+
+
+    // Notificación de ejemplo de éxito
+    notificaciones.push({
+      tipo: "exito",
+      mensaje: "¡Gracias por completar los documentos satisfactoriamente! Has aprobado la certificación."
+    });
+
+    const container = document.getElementById("notificaciones");
+    notificaciones.forEach(n => {
+      const div = document.createElement("div");
+      div.className = "notificacion " + n.tipo;
+      div.textContent = n.mensaje;
+      container.appendChild(div);
+    });
+  </script>
+
+</body>
+</html>

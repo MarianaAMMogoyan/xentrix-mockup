@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Buscar Documentos - Xentrix</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .main input[type="text"] {
+      width: 70%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .main button {
+      padding: 10px 20px;
+      margin-left: 10px;
+      font-size: 16px;
+      background-color: #2980b9;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .main button:hover {
+      background-color: #1c5980;
+    }
+
+    .resultados {
+      margin-top: 20px;
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .resultado-item {
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .resultado-item:last-child {
+      border-bottom: none;
+    }
+  </style>
+</head>
+<body class="home-body">
+
+  <!-- Menú lateral -->
+  <div class="sidebar">
+    <h2>Menú</h2>
+    <ul>
+      <li><a href="home.html">🏠 Home</a></li>
+      <li><a href="add-documents.html">📂 Añadir documentos</a></li>
+      <li><a href="proximas-visitas.html">📅 Próximas visitas</a></li>
+      <li><a href="buscar-documentos.html">🔎 Buscar en documentos</a></li>
+      <li><a href="notificaciones.html">🔔 Notificaciones</a></li>
+      <li><a href="index.html">🚪 Salir</a></li>
+    </ul>
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="main">
+    <h1>Buscar Documentos</h1>
+    <p>Escribe el nombre del documento y haz click en buscar:</p>
+    <input type="text" id="busqueda" placeholder="Ej. INE, Comprobante, Póliza...">
+    <button onclick="buscarDocumento()">Buscar</button>
+
+    <div class="resultados" id="resultados">
+      <!-- Aquí se mostrarán los resultados -->
+    </div>
+  </div>
+
+  <script>
+    // Datos de ejemplo de documentos
+    const documentos = [
+      {tipo: "INE", nombre: "INE Juan Pérez"},
+      {tipo: "Comprobante", nombre: "Comprobante de domicilio"},
+      {tipo: "Póliza", nombre: "Póliza de seguro"},
+      {tipo: "INE", nombre: "INE María López"}
+    ];
+
+    function buscarDocumento() {
+      const query = document.getElementById("busqueda").value.toLowerCase();
+      const resultadosDiv = document.getElementById("resultados");
+      resultadosDiv.innerHTML = "";
+
+      if(!query) {
+        resultadosDiv.innerHTML = "<p>Ingresa algo para buscar...</p>";
+        return;
+      }
+
+      const resultados = documentos.filter(doc => doc.tipo.toLowerCase().includes(query) || doc.nombre.toLowerCase().includes(query));
+
+      if(resultados.length === 0) {
+        resultadosDiv.innerHTML = "<p>No se encontraron documentos relacionados.</p>";
+      } else {
+        resultados.forEach(doc => {
+          const div = document.createElement("div");
+          div.className = "resultado-item";
+          div.textContent = `${doc.tipo} - ${doc.nombre}`;
+          resultadosDiv.appendChild(div);
+        });
+      }
+    }
+  </script>
+
+</body>
+</html>

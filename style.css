@@ -1,0 +1,165 @@
+/* ===========================
+   ESTILOS LOGIN
+=========================== */
+body.login-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #2c3e50;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.login-box {
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.login-box h2 {
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+.input-group {
+  margin: 15px 0;
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  padding: 10px 20px;
+  background: #2980b9;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 15px;
+  margin-top: 10px;
+}
+
+button:hover {
+  background: #1f618d;
+}
+
+/* ===========================
+   ESTILOS HOME / SUBPÁGINAS
+=========================== */
+body.home-body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  background: #ecf0f1;
+}
+
+/* Menú lateral */
+.sidebar {
+  width: 220px;
+  background: #2c3e50;
+  color: white;
+  padding: 20px;
+  height: 100vh;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.2);
+}
+
+.sidebar h2 {
+  margin-top: 0;
+  font-size: 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.3);
+  padding-bottom: 10px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin: 15px 0;
+}
+
+.sidebar a {
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  transition: color 0.3s;
+}
+
+.sidebar a:hover {
+  color: #f1c40f;
+}
+
+/* Contenido principal */
+.main {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.main h1 {
+  margin-top: 0;
+  color: #2c3e50;
+}
+
+.perfil {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.icono {
+  font-size: 50px;
+  margin-right: 15px;
+}
+
+.datos p {
+  margin: 5px 0;
+  color: #333;
+}
+
+.proxima-visita {
+  background: #f1c40f;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.indicadores {
+  margin-top: 20px;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.indicadores h2 {
+  margin-top: 0;
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+
+

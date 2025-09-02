@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Home - Xentrix</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="home-body">
+
+  <!-- Menú lateral -->
+  <div class="sidebar">
+    <h2>Menú</h2>
+    <ul>
+      <li><a href="home.html">🏠 Home</a></li>
+      <li><a href="add-documents.html">📂 Añadir documentos</a></li>
+      <li><a href="proximas-visitas.html">📅 Próximas visitas</a></li>
+      <li><a href="buscar-documentos.html">🔎 Buscar en documentos</a></li>
+      <li><a href="notificaciones.html">🔔 Notificaciones</a></li>
+      <li><a href="index.html">🚪 Salir</a></li>
+    </ul>
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="main">
+    <h1>Bienvenido</h1>
+
+    <!-- Perfil -->
+    <div class="perfil">
+      <div class="icono">👤</div>
+      <div class="datos">
+        <p><strong>Nombre:</strong> Juan Pérez</p>
+        <p><strong>Matrícula:</strong> 123456</p>
+      </div>
+    </div>
+
+    <!-- Próxima visita (visual) -->
+    <div class="proxima-visita" id="proxima-visita">
+      <h2>Tu próxima visita es:</h2>
+      <p id="fecha-proxima">No hay visitas programadas</p>
+    </div>
+
+    <!-- Indicadores -->
+    <div class="indicadores">
+      <h2>Indicadores de certificaciones</h2>
+      <canvas id="barChart" width="300" height="200"></canvas>
+      <canvas id="pieChart" width="300" height="200"></canvas>
+    </div>
+
+    <!-- Agregar visita -->
+    <div class="agregar-visita">
+      <h2>Agregar nueva visita</h2>
+      <input type="date" id="nuevaVisita">
+      <button id="btnAgregar">Agregar</button>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    // ====== Home específico ======
+    document.addEventListener("DOMContentLoaded", function() {
+      const visitas = JSON.parse(localStorage.getItem("visitas")) || [];
+
+      // Mostrar próxima visita
+      const fechaProx = document.getElementById("fecha-proxima");
+      if(visitas.length > 0) {
+        fechaProx.textContent = visitas[0]; // solo la primera
+      } else {
+        fechaProx.textContent = "No hay visitas programadas";
+      }
+
+      // Agregar nueva visita
+      document.getElementById("btnAgregar").addEventListener("click", function() {
+        const input = document.getElementById("nuevaVisita");
+        const fecha = input.value;
+        if (!fecha) {
+          alert("Selecciona una fecha válida");
+          return;
+        }
+        let visitas = JSON.parse(localStorage.getItem("visitas")) || [];
+        if (!visitas.includes(fecha)) {
+          visitas.push(fecha);
+          visitas.sort(); // opcional: orden cronológico
+          localStorage.setItem("visitas", JSON.stringify(visitas));
+          alert(`Visita agregada: ${fecha}`);
+          input.value = "";
+          fechaProx.textContent = visitas[0]; // actualizar próxima visita
+        } else {
+          alert("Esta fecha ya tiene una visita programada");
+        }
+      });
+    });
+  </script>
+</body>
+</html>
